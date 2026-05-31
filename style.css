@@ -304,25 +304,22 @@ body {
   background: linear-gradient(90deg, var(--bg-paineis) 0%, rgba(255, 34, 34, 0.02) 100%);
 }
 
-/* Substitua este bloco exato no final do seu style.css */
-.card-img-wrapper {
-  width: 120px;
-  height: 80px;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-right: 20px;
-  border: 1px solid var(--borda-sutil);
+/* Cole este bloco no lugar do card-img-wrapper antigo */
+.car-card {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #1f1f24;
+  background-color: var(--bg-paineis);
+  border: 1px solid var(--borda-sutil);
+  border-radius: 8px;
+  padding: 25px 30px; /* Aumentado o espaçamento interno para dar um visual mais imponente */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.card-img-wrapper img {
-  width: 100% !important;   /* Altera de fixo para 100% flexível */
-  height: 100% !important;  /* Altera de fixo para 100% flexível */
-  object-fit: contain;      /* Garante o encaixe perfeito do vetor inline */
-  display: block;
+.card-info span {
+  font-size: 0.8rem;
+  color: var(--texto-cinza);
+  letter-spacing: 1px; /* Deixa as especificações técnicas mais legíveis */
 }
 
 
