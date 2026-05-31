@@ -115,6 +115,32 @@
   <footer>
     <p>© 2026 Apex Motors Co. Curadoria Digital de Performance.</p>
   </footer>
+    <!-- ==================================================
+       MODAL DE AGENDAMENTO (JANELA FLUTUANTE)
+       ================================================== -->
+  <div id="modalAgendamento" class="modal-overlay">
+    <div class="modal-content">
+      <button id="fecharModal" class="btn-fechar-modal"><i class="fas fa-times"></i></button>
+      <h3>AGENDAR TEST DRIVE</h3>
+      <p>Preencha os dados abaixo para reservar sua sessão de telemetria na pista.</p>
+      
+      <div class="form-group">
+        <input type="text" id="nomeCliente" placeholder="Seu Nome Completo">
+      </div>
+      <div class="form-group">
+        <input type="tel" id="telCliente" placeholder="Seu Telefone / WhatsApp">
+      </div>
+      <div class="form-group">
+        <select id="carroInteresse">
+          <option value="Porsche 911 GT3 RS">Porsche 911 GT3 RS</option>
+          <option value="Lamborghini Huracán">Lamborghini Huracán</option>
+          <option value="Ferrari SF90 Stradale">Ferrari SF90 Stradale</option>
+        </select>
+      </div>
+      
+      <button id="btnConfirmarAgendamento" class="btn-confirmar">CONFIRMAR RESERVA</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

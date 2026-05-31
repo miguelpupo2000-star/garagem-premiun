@@ -175,3 +175,54 @@ document.addEventListener('DOMContentLoaded', () => {
     barPotencia.style.width = dadosCarros.porsche.barraPotencia;
   }, 300);
 });
+// ==================================================
+// LÓGICA DO MODAL DE AGENDAMENTO PREMIUM
+// ==================================================
+const btnAgendarTopo = document.querySelector('.btn-contato-topo');
+const modal = document.getElementById('modalAgendamento');
+const btnFecharModal = document.getElementById('fecharModal');
+const btnConfirmar = document.getElementById('btnConfirmarAgendamento');
+
+// Campos do formulário
+const nomeCliente = document.getElementById('nomeCliente');
+const telCliente = document.getElementById('telCliente');
+const carroInteresse = document.getElementById('carroInteresse');
+
+// 1. Abrir Modal ao clicar no botão do topo
+btnAgendarTopo.addEventListener('click', () => {
+  modal.classList.add('aberto');
+});
+
+// 2. Fechar Modal ao clicar no 'X'
+btnFecharModal.addEventListener('click', () => {
+  modal.classList.remove('aberto');
+});
+
+// 3. Fechar Modal se clicar fora da janela central
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.classList.remove('aberto');
+  }
+});
+
+// 4. Capturar os dados e gerar a URL mágica do mailto
+btnConfirmar.addEventListener('click', () => {
+  const nome = nomeCliente.value.trim();
+  const telefone = telCliente.value.trim();
+  const carro = carroInteresse.value;
+
+  if (nome === "" || telefone === "") {
+    alert("Por favor, preencha todos os campos para o agendamento.");
+    return;
+  }
+
+  const meuEmail = "migueldev.contato@gmail.com";
+  const assunto = encodeURIComponent(`Agendamento de Test Drive - ${carro}`);
+  const corpoMensagem = encodeURIComponent(`Olá Miguel,\n\nGostaria de agendar uma visita e test drive para testar a telemetria do veículo.\n\nDados do Solicitante:\nNome: ${nome}\nTelefone/WhatsApp: ${telefone}\nVeículo de Interesse: ${carro}\n\nAguardo o retorno para confirmação da data!`);
+
+  // Dispara o mailto nativo de forma automática
+  window.location.href = `mailto:${meuEmail}?subject=${assunto}&body=${corpoMensagem}`;
+  
+  // Fecha o modal após o disparo
+  modal.classList.remove('aberto');
+});
