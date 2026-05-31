@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- BARRA DE ALERTA DE SHOWROOM DIGITAL -->
+  <div style="background: #111; border-bottom: 1px solid #ff2222; text-align: center; padding: 6px 10px; font-size: 11px; letter-spacing: 2px; color: #ff2222; font-weight: bold; position: relative; z-index: 2000;">
+    <i class="fas fa-exhibition-cap"></i> AVISO: SHOWROOM FÍSICO EM MANUTENÇÃO // SESSÕES APENAS VIA TELEMETRIA DIGITAL
+  </div>
 
   <!-- Menu de Navegação Superior Transparente -->
   <nav class="navbar">
@@ -122,8 +126,10 @@
     <div class="modal-content">
       <button id="fecharModal" class="btn-fechar-modal"><i class="fas fa-times"></i></button>
       <h3>AGENDAR TEST DRIVE</h3>
-      <p>Preencha os dados abaixo para reservar sua sessão de telemetria na pista.</p>
-      
+           <!-- Altere o parágrafo de dentro do seu modal para este: -->
+      <p style="color: #ff3333; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> ATENÇÃO: Visitas físicas suspensas.</p>
+      <p>Reserve abaixo o seu horário para uma sessão de mentoria e simulação de dados de pista de forma 100% virtual.</p>
+
       <div class="form-group">
         <input type="text" id="nomeCliente" placeholder="Seu Nome Completo">
       </div>
