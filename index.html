@@ -76,13 +76,19 @@
         </div>
       </div>
 
-      <!-- LADO DIREITO: Seleção de Cards Visuais em Base64 Embutido -->
+            <!-- LADO DIREITO: Seleção de Cards Visuais com SVG Nativo e Destravado -->
       <div class="cards-container">
         
-               <!-- Opção 1: Porsche -->
+        <!-- Opção 1: Porsche -->
         <div class="car-card active" data-car="porsche">
           <div class="card-img-wrapper">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 120 80'><rect width='100%' height='100%' fill='%231f1f24'/><path d='M20 50 Q40 30 70 30 T105 45 L110 50 L10 50 Z' fill='%23ff2222'/><circle cx='35' cy='52' r='8' fill='%23080808'/><circle cx='85' cy='52' r='8' fill='%23080808'/></svg>" alt="Porsche GT3 RS">
+            <!-- Vetor nativo: Desenha the Porsche direto na tela -->
+            <svg xmlns="http://w3.org" viewBox="0 0 120 80" style="width: 100%; height: 100%;">
+              <rect width="100%" height="100%" fill="#1f1f24"/>
+              <path d="M20 50 Q40 30 70 30 T105 45 L110 50 L10 50 Z" fill="#ff2222"/>
+              <circle cx="35" cy="52" r="8" fill="#080808"/>
+              <circle cx="85" cy="52" r="8" fill="#080808"/>
+            </svg>
           </div>
           <div class="card-info">
             <h4>Porsche 911 GT3 RS</h4>
@@ -93,7 +99,13 @@
         <!-- Opção 2: Lamborghini -->
         <div class="car-card" data-car="lambo">
           <div class="card-img-wrapper">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 120 80'><rect width='100%' height='100%' fill='%231f1f24'/><path d='M15 52 L35 32 L80 32 L105 48 L110 52 Z' fill='%23ffaa00'/><circle cx='35' cy='54' r='8' fill='%23080808'/><circle cx='85' cy='54' r='8' fill='%23080808'/></svg>" alt="Lamborghini Huracan">
+            <!-- Vetor nativo: Desenha the Lamborghini direto na tela -->
+            <svg xmlns="http://w3.org" viewBox="0 0 120 80" style="width: 100%; height: 100%;">
+              <rect width="100%" height="100%" fill="#1f1f24"/>
+              <path d="M15 52 L35 32 L80 32 L105 48 L110 52 Z" fill="#ffaa00"/>
+              <circle cx="35" cy="54" r="8" fill="#080808"/>
+              <circle cx="85" cy="54" r="8" fill="#080808"/>
+            </svg>
           </div>
           <div class="card-info">
             <h4>Lamborghini Huracán</h4>
@@ -104,13 +116,22 @@
         <!-- Opção 3: Ferrari -->
         <div class="car-card" data-car="ferrari">
           <div class="card-img-wrapper">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 120 80'><rect width='100%' height='100%' fill='%231f1f24'/><path d='M10 48 Q30 35 60 28 T110 48 Z' fill='%23dd1111'/><circle cx='32' cy='50' r='8' fill='%23080808'/><circle cx='88' cy='50' r='8' fill='%23080808'/></svg>" alt="Ferrari SF90 Stradale">
+            <!-- Vetor nativo: Desenha the Ferrari direto na tela -->
+            <svg xmlns="http://w3.org" viewBox="0 0 120 80" style="width: 100%; height: 100%;">
+              <rect width="100%" height="100%" fill="#1f1f24"/>
+              <path d="M10 48 Q30 35 60 28 T110 48 Z" fill="#dd1111"/>
+              <circle cx="32" cy="50" r="8" fill="#080808"/>
+              <circle cx="88" cy="50" r="8" fill="#080808"/>
+            </svg>
           </div>
           <div class="card-info">
             <h4>Ferrari SF90 Stradale</h4>
             <span>4.0L V8 Hybrid</span>
           </div>
         </div>
+
+      </div>
+
 
 
       </div>
