@@ -11,8 +11,10 @@ const dadosCarros = {
     barraVelocidade: "85%",
     barraAceleracao: "95%",
     barraPotencia: "75%",
-    freqBase: 35, // Frequência do motor Boxer
-    tipoOnda: "sawtooth"
+    freqBase: 44,       // Giro inicial padrão do Boxer
+    multiplicador: 6.5, // Grita super agudo (alta rotação de 9.000 RPM)
+    tipoOnda: "sawtooth",
+    filtro: 450
   },
   lambo: {
     nome: "Lamborghini Huracán",
@@ -23,8 +25,10 @@ const dadosCarros = {
     barraVelocidade: "90%",
     barraAceleracao: "97%",
     barraPotencia: "85%",
-    freqBase: 42, // Frequência do motor V10
-    tipoOnda: "sawtooth"
+    freqBase: 36,       // Tom mais grosso para o bloco V10 grande
+    multiplicador: 4.8, // Sobe o giro forte e metálico
+    tipoOnda: "sawtooth",
+    filtro: 320         // Filtro mais fechado para encorpar o som
   },
   ferrari: {
     nome: "Ferrari SF90 Stradale",
@@ -35,8 +39,10 @@ const dadosCarros = {
     barraVelocidade: "98%",
     barraAceleracao: "100%",
     barraPotencia: "100%",
-    freqBase: 28, // Frequência do motor V8 Bi-turbo
-    tipoOnda: "triangle"
+    freqBase: 26,       // V8 Bi-turbo muito grave e encorpado por causa dos turbos
+    multiplicador: 3.5, // Arrancada brutal com subida de rotação curta e cheia de torque
+    tipoOnda: "triangle", // Onda mais aveludada simulando o fluxo dos turbos
+    filtro: 260         // Som abafado e muito forte de escapamento grosso
   }
 };
 
@@ -56,13 +62,12 @@ const barPotencia = document.getElementById('bar-potencia');
 const painelTelemetria = document.querySelector('.telemetria-panel');
 
 // ==================================================
-// ENGINE DE SOM TRIDIMENSIONAL NATIVA (SEM ARQUIVOS)
+// ENGINE DE SOM CUSTOMIZADA PARA CADA MOTOR
 // ==================================================
 function simularAceleracaoMotor(idCarro) {
   const carro = dadosCarros[idCarro];
   
   try {
-    // Inicializa o contexto de áudio do navegador na hora do clique
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     const osc1 = audioCtx.createOscillator();
@@ -70,24 +75,20 @@ function simularAceleracaoMotor(idCarro) {
     const mainGain = audioCtx.createGain();
     const lowpass = audioCtx.createBiquadFilter();
 
-    // Configura o tipo de ronco baseado no motor escolhido
+    // Injeta a configuração exclusiva da identidade de cada marca
     osc1.type = carro.tipoOnda;
-    osc2.type = "sawtooth";
+    osc2.type = "sawtooth"; // Garante o atrito metálico do escape
     
-    // Frequência de marcha lenta inicial
     let fInicial = carro.freqBase;
     osc1.frequency.setValueAtTime(fInicial, audioCtx.currentTime);
-    osc2.frequency.setValueAtTime(fInicial * 2, audioCtx.currentTime);
+    osc2.frequency.setValueAtTime(fInicial * 1.5, audioCtx.currentTime);
 
-    // Filtro acústico para encorpar o som
     lowpass.type = "lowpass";
-    lowpass.frequency.setValueAtTime(350, audioCtx.currentTime);
+    lowpass.frequency.setValueAtTime(carro.filtro, audioCtx.currentTime);
 
-    // Volume seguro e limpo
     mainGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-    mainGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.1);
+    mainGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.1);
 
-    // Conexões
     osc1.connect(lowpass);
     osc2.connect(lowpass);
     lowpass.connect(mainGain);
@@ -96,17 +97,16 @@ function simularAceleracaoMotor(idCarro) {
     osc1.start();
     osc2.start();
 
-    // SIMULAÇÃO DA ARRANCADA: Sobe o giro e abre o filtro durante 1.5 segundos
-    osc1.frequency.linearRampToValueAtTime(fInicial * 5, audioCtx.currentTime + 1.5);
-    osc2.frequency.linearRampToValueAtTime((fInicial * 2) * 4, audioCtx.currentTime + 1.5);
-    lowpass.frequency.linearRampToValueAtTime(1500, audioCtx.currentTime + 1.5);
+    // A MÁGICA: Cada carro agora multiplica e abre o filtro no seu próprio ritmo mecânico
+    osc1.frequency.linearRampToValueAtTime(fInicial * carro.multiplicador, audioCtx.currentTime + 1.4);
+    osc2.frequency.linearRampToValueAtTime((fInicial * 1.5) * (carro.multiplicador * 0.9), audioCtx.currentTime + 1.4);
+    lowpass.frequency.linearRampToValueAtTime(carro.filtro + 1200, audioCtx.currentTime + 1.4);
 
-    // Alivia o pé do acelerador no final (desaceleração rápida)
-    osc1.frequency.linearRampToValueAtTime(fInicial, audioCtx.currentTime + 2.0);
-    osc2.frequency.linearRampToValueAtTime(fInicial * 2, audioCtx.currentTime + 2.0);
+    // Alivia o pé do acelerador gerando o corte rápido
+    osc1.frequency.linearRampToValueAtTime(fInicial, audioCtx.currentTime + 1.9);
+    osc2.frequency.linearRampToValueAtTime(fInicial * 1.5, audioCtx.currentTime + 1.9);
     mainGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 2.0);
 
-    // Desliga totalmente os osciladores e limpa a memória do processador após 2 segundos
     setTimeout(() => {
       osc1.stop();
       osc2.stop();
@@ -114,7 +114,7 @@ function simularAceleracaoMotor(idCarro) {
     }, 2000);
 
   } catch (error) {
-    console.log("Navegador aguardando interação física completa.");
+    console.log("Aguardando interação física.");
   }
 }
 
@@ -124,17 +124,14 @@ function simularAceleracaoMotor(idCarro) {
 function atualizarShowroom(idCarro) {
   const carro = dadosCarros[idCarro];
 
-  // Efeito visual: Pisca o painel simulando carregamento de dados
   painelTelemetria.style.opacity = '0.3';
   painelTelemetria.style.transform = 'scale(0.99)';
   painelTelemetria.style.transition = 'all 0.2s ease';
 
-  // Reseta a largura das barras para dar o efeito de subir do zero
   barVelocidade.style.width = '0%';
   barAceleracao.style.width = '0%';
   barPotencia.style.width = '0%';
 
-  // Espera o efeito de sumir terminar para injetar os novos dados técnicos
   setTimeout(() => {
     painelNome.textContent = carro.nome;
     painelDesc.textContent = carro.descricao;
@@ -145,7 +142,6 @@ function atualizarShowroom(idCarro) {
     painelTelemetria.style.opacity = '1';
     painelTelemetria.style.transform = 'scale(1)';
 
-    // Injeta as novas larguras fazendo as barras dispararem com animação fluida
     setTimeout(() => {
       barVelocidade.style.width = carro.barraVelocidade;
       barAceleracao.style.width = carro.barraAceleracao;
@@ -156,7 +152,7 @@ function atualizarShowroom(idCarro) {
 }
 
 // ==================================================
-// GERENCIADOR DE CLIQUES NOS CARDS DE SELEÇÃO
+// GERENCIADOR DE CLIQUES
 // ==================================================
 cards.forEach(card => {
   card.addEventListener('click', () => {
@@ -167,15 +163,11 @@ cards.forEach(card => {
 
     const carroSelecionado = card.getAttribute('data-car');
 
-    // Executa as duas ações juntas no mesmo clique: atualiza a tela e bessa o motor
     atualizarShowroom(carroSelecionado);
     simularAceleracaoMotor(carroSelecionado);
   });
 });
 
-// ==================================================
-// DISPARO INICIAL (Carrega o Porsche ao abrir o site)
-// ==================================================
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     barVelocidade.style.width = dadosCarros.porsche.barraVelocidade;
