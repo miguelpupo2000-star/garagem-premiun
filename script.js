@@ -10,7 +10,9 @@ const dadosCarros = {
     potencia: "525 CV",
     barraVelocidade: "85%",
     barraAceleracao: "95%",
-    barraPotencia: "75%"
+    barraPotencia: "75%",
+    freqBase: 35, // Frequência do motor Boxer
+    tipoOnda: "sawtooth"
   },
   lambo: {
     nome: "Lamborghini Huracán",
@@ -20,7 +22,9 @@ const dadosCarros = {
     potencia: "640 CV",
     barraVelocidade: "90%",
     barraAceleracao: "97%",
-    barraPotencia: "85%"
+    barraPotencia: "85%",
+    freqBase: 42, // Frequência do motor V10
+    tipoOnda: "sawtooth"
   },
   ferrari: {
     nome: "Ferrari SF90 Stradale",
@@ -30,7 +34,9 @@ const dadosCarros = {
     potencia: "1000 CV",
     barraVelocidade: "98%",
     barraAceleracao: "100%",
-    barraPotencia: "100%"
+    barraPotencia: "100%",
+    freqBase: 28, // Frequência do motor V8 Bi-turbo
+    tipoOnda: "triangle"
   }
 };
 
@@ -50,31 +56,92 @@ const barPotencia = document.getElementById('bar-potencia');
 const painelTelemetria = document.querySelector('.telemetria-panel');
 
 // ==================================================
+// ENGINE DE SOM TRIDIMENSIONAL NATIVA (SEM ARQUIVOS)
+// ==================================================
+function simularAceleracaoMotor(idCarro) {
+  const carro = dadosCarros[idCarro];
+  
+  try {
+    // Inicializa o contexto de áudio do navegador na hora do clique
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
+    const mainGain = audioCtx.createGain();
+    const lowpass = audioCtx.createBiquadFilter();
+
+    // Configura o tipo de ronco baseado no motor escolhido
+    osc1.type = carro.tipoOnda;
+    osc2.type = "sawtooth";
+    
+    // Frequência de marcha lenta inicial
+    let fInicial = carro.freqBase;
+    osc1.frequency.setValueAtTime(fInicial, audioCtx.currentTime);
+    osc2.frequency.setValueAtTime(fInicial * 2, audioCtx.currentTime);
+
+    // Filtro acústico para encorpar o som
+    lowpass.type = "lowpass";
+    lowpass.frequency.setValueAtTime(350, audioCtx.currentTime);
+
+    // Volume seguro e limpo
+    mainGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+    mainGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.1);
+
+    // Conexões
+    osc1.connect(lowpass);
+    osc2.connect(lowpass);
+    lowpass.connect(mainGain);
+    mainGain.connect(audioCtx.destination);
+
+    osc1.start();
+    osc2.start();
+
+    // SIMULAÇÃO DA ARRANCADA: Sobe o giro e abre o filtro durante 1.5 segundos
+    osc1.frequency.linearRampToValueAtTime(fInicial * 5, audioCtx.currentTime + 1.5);
+    osc2.frequency.linearRampToValueAtTime((fInicial * 2) * 4, audioCtx.currentTime + 1.5);
+    lowpass.frequency.linearRampToValueAtTime(1500, audioCtx.currentTime + 1.5);
+
+    // Alivia o pé do acelerador no final (desaceleração rápida)
+    osc1.frequency.linearRampToValueAtTime(fInicial, audioCtx.currentTime + 2.0);
+    osc2.frequency.linearRampToValueAtTime(fInicial * 2, audioCtx.currentTime + 2.0);
+    mainGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 2.0);
+
+    // Desliga totalmente os osciladores e limpa a memória do processador após 2 segundos
+    setTimeout(() => {
+      osc1.stop();
+      osc2.stop();
+      audioCtx.close();
+    }, 2000);
+
+  } catch (error) {
+    console.log("Navegador aguardando interação física completa.");
+  }
+}
+
+// ==================================================
 // FUNÇÃO QUE ATUALIZA O PAINEL COM ANIMAÇÃO
 // ==================================================
 function atualizarShowroom(idCarro) {
   const carro = dadosCarros[idCarro];
 
-  // 1. Efeito visual: Pisca o painel simulando carregamento de dados
+  // Efeito visual: Pisca o painel simulando carregamento de dados
   painelTelemetria.style.opacity = '0.3';
   painelTelemetria.style.transform = 'scale(0.99)';
   painelTelemetria.style.transition = 'all 0.2s ease';
 
-  // 2. Reseta a largura das barras para dar o efeito de subir do zero
+  // Reseta a largura das barras para dar o efeito de subir do zero
   barVelocidade.style.width = '0%';
   barAceleracao.style.width = '0%';
   barPotencia.style.width = '0%';
 
-  // 3. Espera o efeito de sumir terminar para injetar os novos dados técnicos
+  // Espera o efeito de sumir terminar para injetar os novos dados técnicos
   setTimeout(() => {
-    // Troca os textos do painel
     painelNome.textContent = carro.nome;
     painelDesc.textContent = carro.descricao;
     txtVelocidade.textContent = carro.velocidade;
     txtAceleracao.textContent = carro.aceleracao;
     txtPotencia.textContent = carro.potencia;
 
-    // Restaura a opacidade do painel
     painelTelemetria.style.opacity = '1';
     painelTelemetria.style.transform = 'scale(1)';
 
@@ -93,20 +160,16 @@ function atualizarShowroom(idCarro) {
 // ==================================================
 cards.forEach(card => {
   card.addEventListener('click', () => {
-    // Se o card já estiver ativo, ignora o clique
     if (card.classList.contains('active')) return;
 
-    // Remove a borda acesa vermelha de todos os cards
     cards.forEach(c => c.classList.remove('active'));
-
-    // Acende em vermelho apenas o card que foi clicado
     card.classList.add('active');
 
-    // Pega o nome do carro guardado no atributo "data-car" do HTML
     const carroSelecionado = card.getAttribute('data-car');
 
-    // Chame a função para atualizar a tela
+    // Executa as duas ações juntas no mesmo clique: atualiza a tela e bessa o motor
     atualizarShowroom(carroSelecionado);
+    simularAceleracaoMotor(carroSelecionado);
   });
 });
 
@@ -114,7 +177,6 @@ cards.forEach(card => {
 // DISPARO INICIAL (Carrega o Porsche ao abrir o site)
 // ==================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Anima as barras do primeiro carro logo após o carregamento da página
   setTimeout(() => {
     barVelocidade.style.width = dadosCarros.porsche.barraVelocidade;
     barAceleracao.style.width = dadosCarros.porsche.barraAceleracao;
