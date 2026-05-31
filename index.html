@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Motors | Garagem Exclusiva</title>
+  <!-- Ícones modernos para os botões e detalhes -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Menu de Navegação Superior Transparente -->
+  <nav class="navbar">
+    <div class="logo">APEX <span>MOTORS</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#showroom">Showroom</a></li>
+      <li><a href="#sobre">A Marca</a></li>
+    </ul>
+    <button class="btn-contato-topo">Agendar Visita</button>
+  </nav>
+
+  <!-- Seção Hero Principal (Banner de Impacto) -->
+  <header id="home" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>A EXPERIÊNCIA MÁXIMA DA PERFORMANCE</h1>
+      <p>Uma curadoria implacável das máquinas mais rápidas e exclusivas do planeta, prontas para as suas mãos.</p>
+      <a href="#showroom" class="btn-explorar">Explorar Showroom <i class="fas fa-chevron-down"></i></a>
+    </div>
+  </header>
+
+  <!-- Seção do Showroom (O Coração do Site) -->
+  <main id="showroom" class="showroom-section">
+    <div class="section-header">
+      <h2>SHOWROOM EXCLUSIVO</h2>
+      <p>Selecione uma máquina para carregar a telemetria de performance e os dados dinâmicos do motor.</p>
+    </div>
+
+    <!-- Container Híbrido: Esquerda (Ficha Técnica Animada) | Direita (Seleção de Carros) -->
+    <div class="showroom-grid">
+      
+      <!-- LADO ESQUERDO: Painel Dinâmico de Telemetria -->
+      <div class="telemetria-panel">
+        <h3 id="car-nome">Porsche 911 GT3 RS</h3>
+        <p id="car-descricao" class="car-desc">O ápice da engenharia de pista homologado para as ruas. Motor aspirado de alta rotação e aerodinâmica ativa extrema.</p>
+        
+        <div class="stats-container">
+          <!-- Barra 1: Velocidade Máxima -->
+          <div class="stat-block">
+            <div class="stat-info">
+              <span>Velocidade Máxima</span>
+              <span id="txt-velocidade" class="stat-number">312 KM/H</span>
+            </div>
+            <div class="bar-bg">
+              <div id="bar-velocidade" class="bar-fill" style="width: 85%;"></div>
+            </div>
+          </div>
+
+          <!-- Barra 2: Aceleração 0-100 -->
+          <div class="stat-block">
+            <div class="stat-info">
+              <span>Aceleração (0 a 100 km/h)</span>
+              <span id="txt-aceleracao" class="stat-number">3.2s</span>
+            </div>
+            <div class="bar-bg">
+              <div id="bar-aceleracao" class="bar-fill" style="width: 95%;"></div>
+            </div>
+          </div>
+
+          <!-- Barra 3: Potência do Motor -->
+          <div class="stat-block">
+            <div class="stat-info">
+              <span>Potência Máxima</span>
+              <span id="txt-potencia" class="stat-number">525 CV</span>
+            </div>
+            <div class="bar-bg">
+              <div id="bar-potencia" class="bar-fill" style="width: 75%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LADO DIREITO: Seleção de Cards Visuais -->
+      <div class="cards-container">
+        
+        <!-- Opção 1: Porsche (Começa ativo) -->
+        <div class="car-card active" data-car="porsche">
+          <div class="card-img-wrapper">
+            <img src="https://unsplash.com" alt="Porsche GT3 RS">
+          </div>
+          <div class="card-info">
+            <h4>Porsche 911 GT3 RS</h4>
+            <span>4.0L Boxer 6</span>
+          </div>
+        </div>
+
+        <!-- Opção 2: Lamborghini -->
+        <div class="car-card" data-car="lambo">
+          <div class="card-img-wrapper">
+            <img src="https://unsplash.com" alt="Lamborghini Huracan STO">
+          </div>
+          <div class="card-info">
+            <h4>Lamborghini Huracán</h4>
+            <span>5.2L V10 NA</span>
+          </div>
+        </div>
+
+        <!-- Opção 3: Ferrari -->
+        <div class="car-card" data-car="ferrari">
+          <div class="card-img-wrapper">
+            <img src="https://unsplash.com" alt="Ferrari SF90 Stradale">
+          </div>
+          <div class="card-info">
+            <h4>Ferrari SF90 Stradale</h4>
+            <span>4.0L V8 Bi-Turbo Hybrid</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Apex Motors Co. Curadoria Digital de Performance.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

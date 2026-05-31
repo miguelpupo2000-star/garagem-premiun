@@ -1,0 +1,381 @@
+@charset "UTF-8";
+
+/* ==================================================
+   VARIÁVEIS DE COR E IDENTIDADE APEX MOTORS
+   ================================================== */
+:root {
+  --bg-principal: #0a0a0c;       /* Preto profundo de showroom */
+  --bg-paineis: #121216;         /* Grafite escuro estilo carbono */
+  --vermelho-neon: #ff2222;      /* Vermelho de alta performance */
+  --texto-claro: #f5f5f7;        /* Branco premium sutil */
+  --texto-cinza: #86868b;        /* Cinza para descrições técnicas */
+  --borda-sutil: #22222a;        /* Divisória discreta */
+  --font-oficial: 'Monaco', 'Courier New', Courier, monospace;
+}
+
+/* ==================================================
+   CONFIGURAÇÕES GERAIS
+   ================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-principal);
+  color: var(--texto-claro);
+  font-family: var(--font-oficial);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* ==================================================
+   BARRA DE NAVEGAÇÃO FLUTUANTE
+   ================================================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: rgba(10, 10, 12, 0.75);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--borda-sutil);
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--texto-claro);
+}
+
+.logo span {
+  color: var(--vermelho-neon);
+  text-shadow: 0 0 10px rgba(255, 34, 34, 0.4);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: var(--texto-cinza);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--texto-claro);
+}
+
+.btn-contato-topo {
+  background: transparent;
+  border: 1px solid var(--vermelho-neon);
+  color: var(--texto-claro);
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-contato-topo:hover {
+  background: var(--vermelho-neon);
+  box-shadow: 0 0 15px rgba(255, 34, 34, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ==================================================
+   SEÇÃO HERO (BANNER DE APRESENTAÇÃO)
+   ================================================== */
+.hero {
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, var(--bg-principal) 100%), 
+              url('https://unsplash.com') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8%;
+  position: relative;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-size: 2.2rem;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+  color: var(--texto-claro);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+  color: var(--texto-cinza);
+  font-size: 1rem;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.btn-explorar {
+  display: inline-block;
+  color: var(--texto-claro);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 2px solid var(--vermelho-neon);
+  padding-bottom: 6px;
+  transition: all 0.3s;
+}
+
+.btn-explorar i {
+  margin-left: 5px;
+  transition: transform 0.3s;
+}
+
+.btn-explorar:hover {
+  letter-spacing: 3px;
+  color: var(--vermelho-neon);
+}
+
+.btn-explorar:hover i {
+  transform: translateY(3px);
+}
+
+/* ==================================================
+   SEÇÃO SHOWROOM (CORAÇÃO DO LAYOUT)
+   ================================================== */
+.showroom-section {
+  padding: 100px 8%;
+  background-color: var(--bg-principal);
+}
+
+.section-header {
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  letter-spacing: 4px;
+  color: var(--texto-claro);
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  color: var(--texto-cinza);
+  font-size: 0.9rem;
+}
+
+/* Estrutura bipartida Grid */
+.showroom-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+/* LADO ESQUERDO: PAINEL DE TELEMETRIA DINÂMICO */
+.telemetria-panel {
+  background-color: var(--bg-paineis);
+  border: 1px solid var(--borda-sutil);
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 120px;
+}
+
+.telemetria-panel h3 {
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--vermelho-neon);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.car-desc {
+  color: var(--texto-cinza);
+  font-size: 0.9rem;
+  margin-bottom: 40px;
+  min-height: 60px; /* Evita que o painel mude de tamanho com textos diferentes */
+}
+
+/* Barras de Desempenho */
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.stat-info span:first-child {
+  color: var(--texto-claro);
+}
+
+.stat-number {
+  font-weight: bold;
+  color: var(--vermelho-neon);
+}
+
+.bar-bg {
+  width: 100%;
+  height: 6px;
+  background-color: #1e1e24;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%; /* O JavaScript vai preencher dinamicamente */
+  background: linear-gradient(90deg, #bb1111, var(--vermelho-neon));
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(255, 34, 34, 0.5);
+  transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* LADO DIREITO: CONTAINER DE CARDS DE SELEÇÃO */
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.car-card {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-paineis);
+  border: 1px solid var(--borda-sutil);
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.car-card:hover {
+  transform: translateX(5px);
+  border-color: rgba(255, 34, 34, 0.3);
+}
+
+.car-card.active {
+  border-color: var(--vermelho-neon);
+  box-shadow: 0 5px 20px rgba(255, 34, 34, 0.1);
+  background: linear-gradient(90deg, var(--bg-paineis) 0%, rgba(255, 34, 34, 0.02) 100%);
+}
+
+.card-img-wrapper {
+  width: 120px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 20px;
+  border: 1px solid var(--borda-sutil);
+}
+
+.card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.car-card:hover .card-img-wrapper img {
+  transform: scale(1.08);
+}
+
+.card-info h4 {
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: var(--texto-claro);
+  margin-bottom: 5px;
+  transition: color 0.3s;
+}
+
+.car-card.active .card-info h4 {
+  color: var(--vermelho-neon);
+}
+
+.card-info span {
+  font-size: 0.8rem;
+  color: var(--texto-cinza);
+}
+
+/* ==================================================
+   RODAPÉ
+   ================================================== */
+footer {
+  text-align: center;
+  padding: 40px;
+  background-color: #060608;
+  color: #44444a;
+  font-size: 0.75rem;
+  border-top: 1px solid var(--borda-sutil);
+}
+
+/* ==================================================
+   RESPONSIVIDADE (MOBILE SECURITY)
+   ================================================== */
+@media (max-width: 968px) {
+  .showroom-grid {
+    grid-template-columns: 1fr; /* Transforma em uma coluna única em tablets/celulares */
+    gap: 40px;
+  }
+  
+  .telemetria-panel {
+    position: relative;
+    top: 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.6rem;
+  }
+  
+  .navbar {
+    padding: 15px 5%;
+  }
+  
+  .btn-contato-topo {
+    display: none; /* Oculta o botão no topo para não esmagar o menu */
+  }
+}
