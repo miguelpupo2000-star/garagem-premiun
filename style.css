@@ -304,7 +304,7 @@ body {
   background: linear-gradient(90deg, var(--bg-paineis) 0%, rgba(255, 34, 34, 0.02) 100%);
 }
 
-/* Subustitua este bloco exato no seu style.css */
+/* Substitua este bloco exato no final do seu style.css */
 .card-img-wrapper {
   width: 120px;
   height: 80px;
@@ -312,12 +312,16 @@ body {
   overflow: hidden;
   margin-right: 20px;
   border: 1px solid var(--borda-sutil);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1f1f24;
 }
 
 .card-img-wrapper img {
-  width: 100% !important;   /* OBRIGA a imagem a preencher a largura total da caixa */
-  height: 100% !important;  /* OBRIGA a imagem a preencher a altura total da caixa */
-  object-fit: cover;        /* Faz o corte inteligente para a foto não ficar esticada */
+  width: 100% !important;   /* Altera de fixo para 100% flexível */
+  height: 100% !important;  /* Altera de fixo para 100% flexível */
+  object-fit: contain;      /* Garante o encaixe perfeito do vetor inline */
   display: block;
 }
 
