@@ -104,10 +104,11 @@ body {
 /* ==================================================
    SEÇÃO HERO (BANNER DE APRESENTAÇÃO)
    ================================================== */
+
 .hero {
   height: 100vh;
   background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, var(--bg-principal) 100%), 
-              url('https://unsplash.com') center/cover no-repeat;
+              url('capa.jpg') center/cover no-repeat; /* APONTA PARA A SUA NOVA CAPA */
   display: flex;
   align-items: center;
   justify-content: center;
