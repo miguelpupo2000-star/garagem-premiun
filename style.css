@@ -304,6 +304,7 @@ body {
   background: linear-gradient(90deg, var(--bg-paineis) 0%, rgba(255, 34, 34, 0.02) 100%);
 }
 
+/* Subustitua este bloco exato no seu style.css */
 .card-img-wrapper {
   width: 120px;
   height: 80px;
@@ -314,11 +315,12 @@ body {
 }
 
 .card-img-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
+  width: 100% !important;   /* OBRIGA a imagem a preencher a largura total da caixa */
+  height: 100% !important;  /* OBRIGA a imagem a preencher a altura total da caixa */
+  object-fit: cover;        /* Faz o corte inteligente para a foto não ficar esticada */
+  display: block;
 }
+
 
 .car-card:hover .card-img-wrapper img {
   transform: scale(1.08);
